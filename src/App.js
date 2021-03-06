@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
   const [names, setNames] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    fetch('/data/names.json')
-      .then(res => res.json())
-      .then(json => {
+    axios.get('/data/names.json')
+      .then(res => {
         setIsLoaded(true);
-        setNames(json.names);
-      })
+        setNames(res.data.names);
+      });
   })
 
   if (!isLoaded) {
